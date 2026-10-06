@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Accede a Horarios fáciles.">
+  <title>Iniciar sesión | Horarios fáciles</title>
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <script src="../assets/js/main.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="site-brand" href="../index.html" aria-label="Horarios fáciles, inicio">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span>horarios faciles punto com</span>
+    </a>
+    <nav class="main-nav" aria-label="Navegación principal">
+      <a href="../index.html#nosotros">nosotros</a>
+      <a href="../index.html#faq">FAQ</a>
+      <a href="../index.html#contacto">contacto</a>
+      <a class="button button-dark button-small" href="login.html">iniciar sesión</a>
+    </nav>
+  </header>
+
+  <main class="login-main">
+    <section class="login-panel" aria-labelledby="login-title">
+      <h1 id="login-title">Iniciar sesión</h1>
+      <form>
+        <div class="field">
+          <label for="email">Correo electrónico</label>
+          <input id="email" name="email" type="email" placeholder="tu@universidad.edu" autocomplete="email">
+        </div>
+        <div class="field">
+          <label for="password">Contraseña</label>
+          <input id="password" name="password" type="password" placeholder="Tu contraseña" autocomplete="current-password">
+        </div>
+        <button class="button login-submit" type="button">Iniciar sesión</button>
+        <a class="forgot-link" href="#recuperar">¿Olvidaste tu contraseña?</a>
+        <div class="login-actions">
+          <button class="button button-light" type="button">Crear cuenta</button>
+          <a class="button button-dark" href="decision.html">Ver el prototipo</a>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; <span id="current-year"></span> Horarios fáciles</p>
+  </footer>
+</body>
+</html>

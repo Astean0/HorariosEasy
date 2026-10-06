@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Organiza los datos y los horarios de tus cursos universitarios.">
+  <title>Editor de horarios | Horarios fáciles</title>
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <script src="../assets/js/main.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="site-brand" href="../index.html" aria-label="Horarios fáciles, inicio">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span>horarios faciles punto com</span>
+    </a>
+    <nav class="main-nav" aria-label="Navegación principal">
+      <a href="../index.html#nosotros">nosotros</a>
+      <a href="../index.html#faq">FAQ</a>
+      <a href="../index.html#contacto">contacto</a>
+      <a class="button button-dark button-small" href="login.html">iniciar sesión</a>
+    </nav>
+  </header>
+
+  <main class="editor-main">
+    <div class="editor-shell">
+      <nav class="editor-sidebar" aria-label="Secciones del editor">
+        <a href="#carreras">Carreras</a>
+        <a href="#asignaturas">Asignaturas</a>
+        <a href="#profesores">Profesores</a>
+        <a href="#horario">Horario</a>
+      </nav>
+
+      <section class="editor-content" aria-live="polite">
+        <p class="editor-empty">Seleccione una sección</p>
+
+        <section class="editor-panel" id="carreras" aria-labelledby="career-title">
+          <h1 id="career-title">Carreras</h1>
+          <p>Organiza las carreras que estás cursando.</p>
+          <form class="editor-form">
+            <div class="field"><label for="career-name">Nombre de la carrera</label><input id="career-name" placeholder="Ej. Ingeniería informática"></div>
+            <div class="field"><label for="career-university">Universidad</label><input id="career-university" placeholder="Nombre de la universidad"></div>
+            <button class="button button-dark" type="button">Agregar carrera</button>
+          </form>
+        </section>
+
+        <section class="editor-panel" id="asignaturas" aria-labelledby="subject-title">
+          <h1 id="subject-title">Asignaturas</h1>
+          <p>Añade las materias que quieres incluir en tu horario.</p>
+          <form class="editor-form">
+            <div class="field"><label for="subject-name">Nombre de la asignatura</label><input id="subject-name" placeholder="Ej. Cálculo I"></div>
+            <div class="field"><label for="subject-code">Código</label><input id="subject-code" placeholder="Ej. MAT-101"></div>
+            <div class="field"><label for="subject-career">Carrera</label><select id="subject-career"><option>Selecciona una carrera</option></select></div>
+            <div class="field"><label for="subject-credits">Créditos</label><input id="subject-credits" type="number" min="0" placeholder="Ej. 4"></div>
+            <button class="button button-dark" type="button">Agregar asignatura</button>
+          </form>
+        </section>
+
+        <section class="editor-panel" id="profesores" aria-labelledby="teacher-title">
+          <h1 id="teacher-title">Profesores</h1>
+          <p>Registra a los profesores de tus asignaturas.</p>
+          <form class="editor-form">
+            <div class="field"><label for="teacher-name">Nombre del profesor</label><input id="teacher-name" placeholder="Nombre y apellido"></div>
+            <div class="field"><label for="teacher-subject">Asignatura</label><select id="teacher-subject"><option>Selecciona una asignatura</option></select></div>
+            <button class="button button-dark" type="button">Agregar profesor</button>
+          </form>
+        </section>
+
+        <section class="editor-panel" id="horario" aria-labelledby="schedule-title">
+          <h1 id="schedule-title">Horario semanal</h1>
+          <p>Tu semana universitaria, de lunes a viernes.</p>
+          <div class="week-grid" aria-label="Vista previa vacía del horario">
+            <article class="week-day"><h2>Lunes</h2><p>Sin clases</p></article>
+            <article class="week-day"><h2>Martes</h2><p>Sin clases</p></article>
+            <article class="week-day"><h2>Miércoles</h2><p>Sin clases</p></article>
+            <article class="week-day"><h2>Jueves</h2><p>Sin clases</p></article>
+            <article class="week-day"><h2>Viernes</h2><p>Sin clases</p></article>
+          </div>
+          <form class="editor-form" style="margin-top: 20px">
+            <div class="field"><label for="class-subject">Asignatura</label><select id="class-subject"><option>Selecciona una asignatura</option></select></div>
+            <div class="field"><label for="class-day">Día</label><select id="class-day"><option>Selecciona un día</option><option>Lunes</option><option>Martes</option><option>Miércoles</option><option>Jueves</option><option>Viernes</option></select></div>
+            <div class="field"><label for="class-start">Hora de inicio</label><input id="class-start" type="time"></div>
+            <div class="field"><label for="class-end">Hora de término</label><input id="class-end" type="time"></div>
+            <button class="button button-dark" type="button">Agregar clase</button>
+          </form>
+        </section>
+      </section>
+    </div>
+  </main>
+</body>
+</html>
