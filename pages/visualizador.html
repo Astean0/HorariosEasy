@@ -8,6 +8,269 @@
     <link rel="stylesheet" href="../assets/css/styles.css"> 
 </head>
 <body>
-    
+      <header class="site-header">
+    <a class="site-brand" href="../index.html" aria-label="Horarios fáciles, inicio">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span>horarios faciles punto com</span>
+    </a>
+    <nav class="main-nav" aria-label="Navegación principal">
+      <a href="../index.html#nosotros">nosotros</a>
+      <a href="../index.html#faq">FAQ</a>
+      <a href="../index.html#contacto">contacto</a>
+      <a class="button button-dark button-small" href="login.html">iniciar sesión</a>
+    </nav>
+  </header>
+
+  <main class="container-fluid px-2 px-md-3 py-2">
+    <div class="viz-shell">
+      <div class="row g-3">
+
+        <!-- Filtros -->
+        <aside class="col-12 col-md-4 col-lg-3">
+          <form class="viz-filters" aria-label="Filtros del visualizador">
+            <div class="mb-3">
+              <label class="form-label" for="sel-carrera">Carrera</label>
+              <select class="form-select" id="sel-carrera"></select>
+            </div>
+            <div class="mb-1">
+              <label class="form-label" for="sel-semestre">Semestre</label>
+              <select class="form-select" id="sel-semestre" disabled></select>
+            </div>
+          </form>
+        </aside>
+
+        <!-- Contenido -->
+        <section class="col-12 col-md-8 col-lg-9" aria-live="polite">
+          <div class="viz-panel">
+            <p class="viz-empty mb-0" id="viz-empty">Selecciona una carrera y un semestre para ver el horario.</p>
+
+            <div id="viz-content" hidden>
+              <h1 id="viz-title"></h1>
+              <p class="viz-meta mb-3" id="viz-meta"></p>
+
+              <ul class="nav nav-pills viz-tabs mb-3" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active" id="tab-semana" data-bs-toggle="pill" data-bs-target="#pane-semana" type="button" role="tab">Horario del semestre</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="tab-asig" data-bs-toggle="pill" data-bs-target="#pane-asig" type="button" role="tab">Asignaturas</button>
+                </li>
+              </ul>
+
+              <div class="tab-content">
+                <div class="tab-pane fade show active" id="pane-semana" role="tabpanel" tabindex="0">
+                  <p class="viz-meta">Toca una clase para ver su horario completo.</p>
+                  <div class="row row-cols-1 row-cols-sm-3 row-cols-lg-5 g-2" id="week"></div>
+                </div>
+                <div class="tab-pane fade" id="pane-asig" role="tabpanel" tabindex="0">
+                  <div class="table-responsive">
+                    <table class="table table-sm align-middle">
+                      <thead><tr><th>Código</th><th>Asignatura</th><th>Profesor</th><th class="text-end">Créditos</th></tr></thead>
+                      <tbody id="subjects"></tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <!-- Modal: horario de la clase -->
+  <div class="modal fade" id="class-modal" tabindex="-1" aria-labelledby="class-modal-title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title fs-5" id="class-modal-title"></h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body" id="class-modal-body"></div>
+        <div class="modal-footer">
+          <button type="button" class="button button-dark button-small" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p>&copy; <span id="current-year"></span> Horarios fáciles</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script>
+    /* Datos de ejemplo. Cuando el editor guarde información,
+       reemplaza este objeto por lo que lea de localStorage o del backend. */
+    const DIAS = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
+    const COLORES = ["#bfd9ce", "#1698ff", "#f2b84b", "#e07a7a", "#9b8bd6", "#6fbf8f"];
+
+    const DATOS = {
+      carreras: [
+        {
+          id: "icinf",
+          nombre: "Ingeniería Civil en Informática",
+          universidad: "Universidad de Tarapacá",
+          semestres: {
+            1: [
+              { codigo: "MAT-101", nombre: "Cálculo I", profesor: "Ana Rojas", creditos: 6,
+                clases: [{ dia: "Lunes", inicio: "08:10", fin: "09:40", sala: "A-101", tipo: "Cátedra" },
+                         { dia: "Miércoles", inicio: "08:10", fin: "09:40", sala: "A-101", tipo: "Cátedra" }] },
+              { codigo: "INF-101", nombre: "Programación I", profesor: "Luis Soto", creditos: 5,
+                clases: [{ dia: "Martes", inicio: "10:00", fin: "11:30", sala: "Lab 2", tipo: "Laboratorio" },
+                         { dia: "Jueves", inicio: "10:00", fin: "11:30", sala: "B-204", tipo: "Cátedra" }] },
+              { codigo: "FIS-101", nombre: "Física General", profesor: "María Pérez", creditos: 5,
+                clases: [{ dia: "Lunes", inicio: "11:40", fin: "13:10", sala: "C-12", tipo: "Cátedra" },
+                         { dia: "Viernes", inicio: "08:10", fin: "09:40", sala: "Lab Física", tipo: "Laboratorio" }] }
+            ],
+            2: [
+              { codigo: "MAT-102", nombre: "Cálculo II", profesor: "Ana Rojas", creditos: 6,
+                clases: [{ dia: "Martes", inicio: "08:10", fin: "09:40", sala: "A-102", tipo: "Cátedra" },
+                         { dia: "Jueves", inicio: "08:10", fin: "09:40", sala: "A-102", tipo: "Cátedra" }] },
+              { codigo: "INF-102", nombre: "Programación II", profesor: "Luis Soto", creditos: 5,
+                clases: [{ dia: "Lunes", inicio: "10:00", fin: "11:30", sala: "Lab 1", tipo: "Laboratorio" },
+                         { dia: "Miércoles", inicio: "10:00", fin: "11:30", sala: "B-204", tipo: "Cátedra" }] }
+            ]
+          }
+        },
+        {
+          id: "icivil",
+          nombre: "Ingeniería Civil",
+          universidad: "Universidad de Tarapacá",
+          semestres: {
+            1: [
+              { codigo: "MAT-101", nombre: "Cálculo I", profesor: "Ana Rojas", creditos: 6,
+                clases: [{ dia: "Martes", inicio: "08:10", fin: "09:40", sala: "A-103", tipo: "Cátedra" },
+                         { dia: "Jueves", inicio: "08:10", fin: "09:40", sala: "A-103", tipo: "Cátedra" }] },
+              { codigo: "CIV-101", nombre: "Dibujo técnico", profesor: "Pedro Vega", creditos: 4,
+                clases: [{ dia: "Viernes", inicio: "10:00", fin: "13:10", sala: "Taller 3", tipo: "Taller" }] }
+            ]
+          }
+        }
+      ]
+    };
+
+    const $ = (id) => document.getElementById(id);
+    const selCarrera = $("sel-carrera");
+    const selSemestre = $("sel-semestre");
+
+    function option(value, text) {
+      const o = document.createElement("option");
+      o.value = value; o.textContent = text;
+      return o;
+    }
+
+    function el(tag, className, text) {
+      const e = document.createElement(tag);
+      if (className) e.className = className;
+      if (text !== undefined) e.textContent = text;
+      return e;
+    }
+
+    /* Carreras */
+    selCarrera.appendChild(option("", "Selecciona una carrera"));
+    DATOS.carreras.forEach((c) => selCarrera.appendChild(option(c.id, c.nombre)));
+    selSemestre.appendChild(option("", "Selecciona un semestre"));
+
+    selCarrera.addEventListener("change", () => {
+      selSemestre.replaceChildren(option("", "Selecciona un semestre"));
+      const carrera = DATOS.carreras.find((c) => c.id === selCarrera.value);
+      selSemestre.disabled = !carrera;
+      if (carrera) {
+        Object.keys(carrera.semestres).forEach((n) => selSemestre.appendChild(option(n, "Semestre " + n)));
+      }
+      render();
+    });
+    selSemestre.addEventListener("change", render);
+
+    function render() {
+      const carrera = DATOS.carreras.find((c) => c.id === selCarrera.value);
+      const asignaturas = carrera && selSemestre.value ? carrera.semestres[selSemestre.value] : null;
+
+      $("viz-empty").hidden = !!asignaturas;
+      $("viz-content").hidden = !asignaturas;
+      if (!asignaturas) return;
+
+      const totalCreditos = asignaturas.reduce((s, a) => s + a.creditos, 0);
+      $("viz-title").textContent = carrera.nombre + " · Semestre " + selSemestre.value;
+      $("viz-meta").textContent = carrera.universidad + " · " + asignaturas.length + " asignaturas · " + totalCreditos + " créditos";
+
+      renderSemana(asignaturas);
+      renderAsignaturas(asignaturas);
+    }
+
+    function renderSemana(asignaturas) {
+      const week = $("week");
+      week.replaceChildren();
+      DIAS.forEach((dia) => {
+        const col = el("div", "col day-col");
+        col.appendChild(el("h2", "", dia));
+
+        const clases = [];
+        asignaturas.forEach((a, i) => a.clases.forEach((c) => {
+          if (c.dia === dia) clases.push({ asig: a, clase: c, color: COLORES[i % COLORES.length] });
+        }));
+        clases.sort((x, y) => x.clase.inicio.localeCompare(y.clase.inicio));
+
+        if (!clases.length) col.appendChild(el("p", "day-empty", "Sin clases"));
+        clases.forEach(({ asig, clase, color }) => {
+          const b = el("button", "class-chip");
+          b.type = "button";
+          b.style.setProperty("--chip", color);
+          b.appendChild(el("strong", "", asig.nombre));
+          b.appendChild(el("span", "", clase.inicio + " – " + clase.fin));
+          b.appendChild(document.createElement("br"));
+          b.appendChild(el("span", "", clase.sala));
+          b.addEventListener("click", () => abrirClase(asig));
+          col.appendChild(b);
+        });
+        week.appendChild(col);
+      });
+    }
+
+    function renderAsignaturas(asignaturas) {
+      const tbody = $("subjects");
+      tbody.replaceChildren();
+      asignaturas.forEach((a) => {
+        const tr = document.createElement("tr");
+        tr.appendChild(el("td", "", a.codigo));
+        const td = document.createElement("td");
+        const link = el("button", "btn btn-link p-0 text-reset text-start", a.nombre);
+        link.type = "button";
+        link.addEventListener("click", () => abrirClase(a));
+        td.appendChild(link);
+        tr.appendChild(td);
+        tr.appendChild(el("td", "", a.profesor));
+        tr.appendChild(el("td", "text-end", a.creditos));
+        tbody.appendChild(tr);
+      });
+    }
+
+    /* Horario de la clase (modal) */
+    const modal = new bootstrap.Modal($("class-modal"));
+    function abrirClase(asig) {
+      $("class-modal-title").textContent = asig.nombre + " (" + asig.codigo + ")";
+      const body = $("class-modal-body");
+      body.replaceChildren();
+
+      const info = [["Profesor", asig.profesor], ["Créditos", asig.creditos]];
+      info.forEach(([k, v]) => {
+        const row = el("div", "detail-row");
+        row.appendChild(el("span", "", k));
+        row.appendChild(el("span", "", v));
+        body.appendChild(row);
+      });
+
+      body.appendChild(el("h3", "fs-6 mt-3 mb-1", "Horario de la clase"));
+      asig.clases.forEach((c) => {
+        const row = el("div", "detail-row");
+        row.appendChild(el("span", "", c.dia + " · " + c.tipo));
+        row.appendChild(el("span", "", c.inicio + " – " + c.fin + " · " + c.sala));
+        body.appendChild(row);
+      });
+      modal.show();
+    }
+  </script>
 </body>
 </html>
