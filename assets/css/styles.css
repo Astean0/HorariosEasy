@@ -110,6 +110,11 @@ button, input, select { font: inherit; }
 .field input::placeholder { color: #a0a5a1; }
 .login-submit { width: 100%; min-height: 38px; margin-top: 2px; background: #292c2a; color: white; }
 .forgot-link { display: inline-block; margin-top: 10px; font-size: 0.78rem; }
+.login-message { margin: 12px 0 0; font-size: 0.82rem; }
+.login-message:empty { display: none; }
+.login-message-error { color: #b42318; }
+.login-message-success { color: #26734d; }
+.forgot-link[aria-disabled="true"] { pointer-events: none; }
 .login-actions { display: flex; justify-content: center; gap: 10px; margin-top: 28px; }
 .button-light { border: 1px solid #c5cac6; background: #f1f2f1; color: #343936; }
 .login-actions .button { min-width: 112px; min-height: 34px; padding: 7px 13px; font-size: 0.76rem; }

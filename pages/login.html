@@ -6,7 +6,8 @@
   <meta name="description" content="Accede a Horarios fáciles.">
   <title>Iniciar sesión | Horarios fáciles</title>
   <link rel="stylesheet" href="../assets/css/styles.css">
-  <script src="../assets/js/main.js" defer></script>
+  <script type="module" src="../assets/js/main.js"></script>
+  <script type="module" src="../assets/js/login.js"></script>
 </head>
 
 <body>
@@ -26,19 +27,20 @@
   <main class="login-main">
     <section class="login-panel" aria-labelledby="login-title">
       <h1 id="login-title">Iniciar sesión</h1>
-      <form>
+      <form id="login-form">
         <div class="field">
           <label for="email">Correo electrónico</label>
-          <input id="email" name="email" type="email" placeholder="tu@universidad.edu" autocomplete="email">
+          <input id="email" name="email" type="email" placeholder="tu@universidad.edu" autocomplete="email" required>
         </div>
         <div class="field">
           <label for="password">Contraseña</label>
-          <input id="password" name="password" type="password" placeholder="Tu contraseña" autocomplete="current-password">
+          <input id="password" name="password" type="password" placeholder="Tu contraseña" autocomplete="current-password" minlength="6" required>
         </div>
-        <button class="button login-submit" type="button">Iniciar sesión</button>
-        <a class="forgot-link" href="#recuperar">¿Olvidaste tu contraseña?</a>
+        <button class="button login-submit" type="submit">Iniciar sesión</button>
+        <a class="forgot-link" id="forgot-password" href="#recuperar">¿Olvidaste tu contraseña?</a>
+        <p class="login-message" id="login-message" role="status" aria-live="polite" aria-atomic="true"></p>
         <div class="login-actions">
-          <button class="button button-light" type="button">Crear cuenta</button>
+          <button class="button button-light" id="create-account" type="button">Crear cuenta</button>
           <a class="button button-dark" href="decision.html">Ver el prototipo</a>
         </div>
       </form>
