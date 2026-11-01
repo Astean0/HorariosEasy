@@ -101,11 +101,11 @@ button, input, select { font: inherit; }
 .site-footer p { margin: 0; }
 
 .login-main { display: grid; min-height: calc(100vh - 105px); place-items: center; padding: 36px 20px; }
-.login-panel { width: min(100%, 420px); padding: 24px; border: 1px solid var(--line); border-radius: 3px; }
+.login-panel { width: min(100%, 420px); padding: 24px; border: 1px solid var(--line); border-radius: 3px; background: #e6e6e6;color: #1F2937; }
 .login-panel h1 { margin: 0 0 20px; font-size: 1.2rem; }
 .field { display: grid; gap: 6px; margin-bottom: 15px; }
-.field label { font-size: 0.82rem; }
-.field input, .field select { width: 100%; min-height: 42px; padding: 9px 11px; border: 1px solid #d7dbd8; border-radius: 3px; background: #fff; }
+.field label { font-size: 0.936rem; color: #18181B}
+.field input, .field select { width: 100%; min-height: 42px; padding: 9px 11px; border: 1px solid #d7dbd8; }
 .field input::placeholder { color: #a0a5a1; }
 .login-submit { width: 100%; min-height: 38px; margin-top: 2px; background: #292c2a; color: white; }
 .forgot-link { display: inline-block; margin-top: 10px; font-size: 0.78rem; }
@@ -128,23 +128,41 @@ button, input, select { font: inherit; }
 
 .editor-main { padding: 12px clamp(12px, 1.5vw, 20px) 20px; }
 .editor-shell { display: grid; min-height: calc(100vh - 82px); grid-template-columns: 190px minmax(0, 1fr); gap: 14px; padding: 18px; border-radius: 4px; background: var(--sage-light); }
-.editor-sidebar { display: flex; flex-direction: column; gap: 4px; padding: 22px 12px; border-radius: 3px; background: #050605; }
+.editor-sidebar { display: flex; flex-direction: column; gap: 4px; padding: 22px 12px; border-radius: 6px; background: #050605; }
 .editor-sidebar a { padding: 13px 10px; border-radius: 2px; color: white; font-size: 0.94rem; text-align: center; text-decoration: none; }
 .editor-sidebar a:hover, .editor-sidebar a:focus-visible { background: #303532; }
 .editor-content { display: grid; min-width: 0; place-items: center; padding: 28px; }
-.editor-empty { color: #333c37; font-size: 0.9rem; }
+.editor-empty { color: #ffffff; font-size: 0.9rem; }
 .editor-panel { display: none; width: min(100%, 760px); align-self: start; padding: 24px; border: 1px solid #cadbd2; border-radius: 4px; background: rgba(255,255,255,0.88); }
 .editor-panel:target { display: block; }
 .editor-shell:has(.editor-panel:target) .editor-empty { display: none; }
-.editor-panel h1 { margin: 0 0 6px; font-size: 1.4rem; }
-.editor-panel > p { margin: 0 0 22px; color: var(--muted); font-size: 0.88rem; }
+.editor-panel h1 { margin: 0 0 6px; color: #1F2937; font-size: 1.4rem; }
+.editor-panel > p { margin: 0 0 22px; color: #6B7280; font-size: 0.88rem; }
 .editor-form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 16px; }
 .editor-form .field:last-of-type { align-self: end; }
 .editor-form .button { width: fit-content; min-width: 130px; margin-top: 3px; }
+/*
 .week-grid { display: grid; grid-template-columns: repeat(5, minmax(90px, 1fr)); gap: 8px; overflow-x: auto; }
 .week-day { min-height: 130px; padding: 10px; border: 1px solid var(--line); background: white; }
 .week-day h2 { margin: 0 0 10px; font-size: 0.82rem; }
 .week-day p { color: var(--muted); font-size: 0.76rem; }
+*/
+
+.schedule-grid { width: 100%; border-collapse: collapse; border: 1px solid #e5e7eb; background: #ffffff; font-size: 0.82rem; margin-bottom: 24px; }
+.schedule-grid thead th { background: #f8fafc; border: 1px solid #e5e7eb; color: #4b5563; font-weight: 600; padding: 12px 8px; text-align: center; letter-spacing: 0.02em; }
+.schedule-grid tbody th, .schedule-grid tbody td { border: 1px solid #eef1f0; padding: 8px; }
+.schedule-hour { width: 130px; background: #ffffff; color: #111827; font-weight: 600; text-align: center; white-space: nowrap; }
+.schedule-cell { height: 56px; min-width: 120px; background: #ffffff; vertical-align: middle; }
+
+/* Formato cuando una celda tiene una clase asignada */
+.schedule-cell.is-filled {
+  background: hsl(155, 25%, 80%);
+  color: #0b2a1d;
+  font-weight: 600;
+  text-align: center;
+  padding: 8px;
+  border-radius: 2px;
+}
 
 @media (max-width: 650px) {
   .site-header { align-items: flex-start; flex-direction: column; gap: 10px; padding: 12px 16px; }
@@ -165,7 +183,9 @@ button, input, select { font: inherit; }
   .editor-content { padding: 12px 6px; }
   .editor-panel { padding: 16px 12px; }
   .editor-form { grid-template-columns: 1fr; }
-  .week-grid { grid-template-columns: repeat(5, minmax(110px, 1fr)); }
+  .schedule-hour { width: 96px; font-size: 0.72rem; }
+  .schedule-cell { min-width: 96px; }
+  /*.week-grid { grid-template-columns: repeat(5, minmax(110px, 1fr)); }*/
 }
 
 @media (max-width: 380px) {
