@@ -1,0 +1,16 @@
+{
+  "name": "horarios-easy",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Plataforma web para organizar horarios académicos.",
+  "type": "commonjs",
+  "scripts": {
+    "dev": "node --watch server.js",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.118.0",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0"
+  }
+}
